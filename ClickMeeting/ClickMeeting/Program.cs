@@ -1,3 +1,4 @@
+using ClickMeeting.ClickMeeting;
 using ClickMeeting.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.Configure<ClickMeetingApiConfig>(builder.Configuration.GetSection("ClickMeetingConfig"));
-
+builder.Services.AddScoped<IClickMeetingApiClient, ClickMeetingApiClient>();
 
 
 var app = builder.Build();

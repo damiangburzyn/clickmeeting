@@ -1,4 +1,5 @@
-﻿using ClickMeeting.Models;
+﻿using ClickMeeting.ClickMeeting;
+using ClickMeeting.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,15 +7,31 @@ namespace ClickMeeting.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<HomeController> _logger;
+        private readonly IClickMeetingApiClient _cmClient;
+
+        public HomeController(IClickMeetingApiClient cmClinent,
+            ILogger<HomeController> logger)
         {
             _logger = logger;
+            _cmClient = cmClinent;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
+            var email = "damian.gburzyn@gmail.com";
+            var roomId = "clickmeeting-test";
+            var password = "clickmeeting";
+            var token = string.Empty;
+            string username = "testowyUser";
+            try {
+                
+                var result = await _cmClient.GetAutologinHash(roomId, email, username, password, token); }
+            catch (Exception ex)
+            { _logger.LogError("Message", ex); }
+
             return View();
         }
 

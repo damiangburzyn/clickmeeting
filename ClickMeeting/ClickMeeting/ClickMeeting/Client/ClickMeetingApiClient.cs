@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ClickMeeting.ClickMeeting
 {
-    public class ClickMeetingApiClient
+    public class ClickMeetingApiClient : IClickMeetingApiClient
     {
         private readonly ClickMeetingApiConfig _clickMeetingConfig;
         private readonly HttpClient _client;
@@ -38,7 +38,7 @@ namespace ClickMeeting.ClickMeeting
 
         public string GetAutologinURL(AutologinResult autologinHash, string roomURL)
         {
-           return $"{roomURL}/{autologinHash.AutologinHash}";
+            return $"{roomURL}/{autologinHash.AutologinHash}";
         }
 
 
