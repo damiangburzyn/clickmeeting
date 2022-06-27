@@ -1,7 +1,16 @@
+using ClickMeeting.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+
+
+builder.Services.Configure<ClickMeetingApiConfig>(builder.Configuration.GetSection("ClickMeetingConfig"));
+
+
 
 var app = builder.Build();
 
