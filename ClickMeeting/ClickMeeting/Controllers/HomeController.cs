@@ -33,7 +33,7 @@ namespace ClickMeeting.Controllers
             {
                 var conferences = await _cmClient.GetConferences(ConferenceStatus.Active, 1);
                   var result = await _cmClient.GetAutologinHash(roomId, email, username, password, token);
-                var conference = conferences.FirstOrDefault(a=> a.Name == "")
+                var conference = conferences.FirstOrDefault(a => a.Name == "");
 
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿
 using ClickMeeting.ClickMeeting.ApiModels;
+using ClickMeeting.Models;
 
 namespace ClickMeeting.ClickMeeting
 {

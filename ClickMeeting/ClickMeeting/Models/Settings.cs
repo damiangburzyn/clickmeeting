@@ -1,18 +1,28 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 
 namespace ClickMeeting.Models
 {
     public class Settings
     {
-        public bool show_on_personal_page { get; set; }
-        public bool thank_you_emails_enabled { get; set; }
-        public bool connection_tester_enabled { get; set; }
-        public bool phonegateway_enabled { get; set; }
-        public bool recorder_autostart_enabled { get; set; }
-        public bool room_invite_button_enabled { get; set; }
-        public bool social_media_sharing_enabled { get; set; }
-        public bool connection_status_enabled { get; set; }
-        public string thank_you_page_url { get; set; }
+        [JsonProperty("show_on_personal_page")]
+        public bool ShowOnPersonalPage { get; set; }
+        [JsonProperty("thank_you_emails_enabled")]
+        public bool ThankYouEmailsEnabled { get; set; }
+        [JsonProperty("connection_tester_enabled")]
+        public bool ConnectionTesterEnabled { get; set; }
+        [JsonProperty("phonegateway_enabled")]
+        public bool PhonegatewayEnabled { get; set; }
+        [JsonProperty("recorder_autostart_enabled")]
+        public bool RecorderAutostartEnabled { get; set; }
+        [JsonProperty("room_invite_button_enabled")]
+        public bool RoomInviteButtonEnabled { get; set; }
+        [JsonProperty("social_media_sharing_enabled")]
+        public bool SocialMediaSharingEnabled { get; set; }
+        [JsonProperty("connection_status_enabled")]
+        public bool ConnectionStatusEnabled { get; set; }
+        [JsonProperty("thank_you_page_url")]
+        public string? ThankYouPageUrl { get; set; }
     }
 }
