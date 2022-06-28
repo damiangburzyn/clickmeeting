@@ -1,4 +1,4 @@
-﻿using ClickMeeting.ClickMeeting.ApiModels;
+using ClickMeeting.ClickMeeting.ApiModels;
 using ClickMeeting.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -37,6 +37,24 @@ namespace ClickMeeting.ClickMeeting
             return result;
         }
 
+        public async Task<AutologinResult> GetAutologinHash(Room room, string email, string username)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{room.Id}/room/autologin_hash";
+            var formData = new List<KeyValuePair<string, string>>();
+            formData.Add(new KeyValuePair<string, string>("email", email));
+            formData.Add(new KeyValuePair<string, string>("nickname", username));
+            formData.Add(new KeyValuePair<string, string>("role", "listener"));
+            formData.Add(new KeyValuePair<string, string>("password", room.Password));
+            formData.Add(new KeyValuePair<string, string>("token", String.Empty));
+            var formContent = new FormUrlEncodedContent(formData);
+
+            var jsonResult = await _client.PostAsync(url, formContent);
+            var jsonString = await jsonResult.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<AutologinResult>(jsonString);
+            return result;
+        }
+
+
         public string GetAutologinURL(AutologinResult autologinHash, string roomURL)
         {
             return $"{roomURL}?l={autologinHash.AutologinHash}";
@@ -58,9 +76,33 @@ namespace ClickMeeting.ClickMeeting
             return result;
         }
 
+        public async Task<Room> GetRoom(string roomId)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{roomId}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await _client.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Nie można pobrać danych pokoju!");
+            }
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Room>(jsonString);
+            return result;
+        }
+
 
         ///TODO: pobierane jest tylko 250 wyników, trzeba pobrać ile można wyników w pętli.
-        public async Task<IEnumerable<Room>> GetConferences(ConferenceStatus status, int page = 1)
+        public async Task<IEnumerable<RoomDetails>> GetConferences(ConferenceStatus status, int page = 1)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{status.GetDescription()}?page={page}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await _client.SendAsync(request);
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<IEnumerable<RoomDetails>>(jsonString);
+            return result;
+        }
+
+        public async Task<IEnumerable<Room>> GetConferenceRooms(ConferenceStatus status, int page = 1)
         {
             var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{status.GetDescription()}?page={page}";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -69,8 +111,6 @@ namespace ClickMeeting.ClickMeeting
             var result = JsonConvert.DeserializeObject<IEnumerable<Room>>(jsonString);
             return result;
         }
-
-
 
     }
 }
