@@ -1,4 +1,5 @@
-﻿using ClickMeeting.Models;
+﻿using ClickMeeting.ClickMeeting.ApiModels;
+using ClickMeeting.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -40,6 +41,35 @@ namespace ClickMeeting.ClickMeeting
         {
             return $"{roomURL}/{autologinHash.AutologinHash}";
         }
+
+        public async Task<RoomDetails> GetRoomConferences(string roomId)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{roomId}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await _client.SendAsync(request);
+            //if (response.IsSuccessStatusCode)
+            //{              
+            //}
+            //else
+            //{
+            //}
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<RoomDetails>(jsonString);
+            return result;
+        }
+
+
+        ///TODO: pobierane jest tylko 250 wyników, trzeba pobrać ile można wyników w pętli.
+        public async Task<IEnumerable<Conference>> GetConferences(ConferenceStatus status, int page = 1)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{status.GetDescription()}?page={page}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await _client.SendAsync(request);
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<IEnumerable<Conference>>(jsonString);
+            return result;
+        }
+
 
 
     }
