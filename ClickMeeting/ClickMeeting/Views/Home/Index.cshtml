@@ -1,4 +1,6 @@
-﻿@{
+﻿@model string;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,5 +11,12 @@
 
 @*<script type="text/javascript" src="https://embed.clickmeeting.com/embed_conference.html?r=1718261646674551&w=1024&h=768"></script>*@
 <!-- wystawiony plik wideo -->
-<script type="text/javascript" src="https://embed.clickmeeting.com/embed_conference.html?r=1718262926681135&w=1024&h=768"></script>
+@*<script type="text/javascript" src="https://embed.clickmeeting.com/embed_conference.html?r=1718262926681135&w=1024&h=768"></script>*@
 
+<iframe src="@Model" height="768" width="1024"></iframe> 
+
+@{
+    var url = Model + "&w=1024&h=768"; 
+}
+
+@*<script type="text/javascript" src="@Model"></script>*@

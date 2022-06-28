@@ -39,7 +39,7 @@ namespace ClickMeeting.ClickMeeting
 
         public string GetAutologinURL(AutologinResult autologinHash, string roomURL)
         {
-            return $"{roomURL}/{autologinHash.AutologinHash}";
+            return $"{roomURL}?l={autologinHash.AutologinHash}";
         }
 
         public async Task<RoomDetails> GetRoomConferences(string roomId)
