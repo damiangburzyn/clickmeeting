@@ -1,7 +1,10 @@
 ﻿using ClickMeeting.ClickMeeting;
+using ClickMeeting.ClickMeeting.ApiModels;
 using ClickMeeting.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ClickMeeting.Controllers
 {
@@ -22,13 +25,17 @@ namespace ClickMeeting.Controllers
         {
 
             var email = "damian.gburzyn@gmail.com";
-            var roomId = "clickmeeting-test";
+            var roomId = "6674551";
             var password = "clickmeeting";
             var token = string.Empty;
             string username = "testowyUser";
-            try {
-                
-                var result = await _cmClient.GetAutologinHash(roomId, email, username, password, token); }
+            try
+            {
+                var conferences = await _cmClient.GetConferences(ConferenceStatus.Active, 1);
+                  var result = await _cmClient.GetAutologinHash(roomId, email, username, password, token);
+                var conference = conferences.FirstOrDefault(a=> a.Name == "")
+
+            }
             catch (Exception ex)
             { _logger.LogError("Message", ex); }
 
