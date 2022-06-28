@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "3XMeOqQY/VHbURfFGD3T9C4jsdOuOxHoFq3S7QoK8Qld69cYnW1C5Iy51gQALkotWS04JnRznSSPFbGx616XCg==",
+  "dgSpecHash": "EmVScPCARHJgdwkGbZr1t3hxTyIdWY74LT8MxGZcGkQ6MhdsvD0iUm/P6QrpQ2HOYeR2+9fnucxnA8O+nBCvew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\damian.gburzynski\\Desktop\\Nowy folder (3)\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Testowe\\clickmeeting\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\robert.gigola\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

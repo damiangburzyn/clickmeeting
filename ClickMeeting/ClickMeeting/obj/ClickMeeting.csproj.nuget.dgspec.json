@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\damian.gburzynski\\Desktop\\Nowy folder (3)\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj": {}
+    "C:\\Testowe\\clickmeeting\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\damian.gburzynski\\Desktop\\Nowy folder (3)\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj": {
+    "C:\\Testowe\\clickmeeting\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\damian.gburzynski\\Desktop\\Nowy folder (3)\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj",
+        "projectUniqueName": "C:\\Testowe\\clickmeeting\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj",
         "projectName": "ClickMeeting",
-        "projectPath": "C:\\Users\\damian.gburzynski\\Desktop\\Nowy folder (3)\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj",
-        "packagesPath": "C:\\Users\\damian.gburzynski\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\damian.gburzynski\\Desktop\\Nowy folder (3)\\ClickMeeting\\ClickMeeting\\obj\\",
+        "projectPath": "C:\\Testowe\\clickmeeting\\ClickMeeting\\ClickMeeting\\ClickMeeting.csproj",
+        "packagesPath": "C:\\Users\\robert.gigola\\.nuget\\packages\\",
+        "outputPath": "C:\\Testowe\\clickmeeting\\ClickMeeting\\ClickMeeting\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\damian.gburzynski\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\robert.gigola\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +25,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget2.silvermedia.pl/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,6 +42,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -62,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.106\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
