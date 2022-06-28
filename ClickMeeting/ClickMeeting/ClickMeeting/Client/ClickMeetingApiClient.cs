@@ -60,13 +60,13 @@ namespace ClickMeeting.ClickMeeting
 
 
         ///TODO: pobierane jest tylko 250 wyników, trzeba pobrać ile można wyników w pętli.
-        public async Task<IEnumerable<Conference>> GetConferences(ConferenceStatus status, int page = 1)
+        public async Task<IEnumerable<Room>> GetConferences(ConferenceStatus status, int page = 1)
         {
             var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{status.GetDescription()}?page={page}";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             var response = await _client.SendAsync(request);
             var jsonString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IEnumerable<Conference>>(jsonString);
+            var result = JsonConvert.DeserializeObject<IEnumerable<Room>>(jsonString);
             return result;
         }
 

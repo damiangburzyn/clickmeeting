@@ -21,7 +21,7 @@ namespace ClickMeeting.ClickMeeting.ApiModels
         public string Host { get; set; }
     }
 
-    public class Conference
+    public class Room
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -117,7 +117,7 @@ namespace ClickMeeting.ClickMeeting.ApiModels
     public class RoomDetails
     {
         [JsonProperty("conference")]
-        public Conference Conference { get; set; }
+        public Room Conference { get; set; }
     }
 
     public class Settings
