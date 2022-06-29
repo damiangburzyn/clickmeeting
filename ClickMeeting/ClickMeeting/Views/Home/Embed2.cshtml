@@ -1,0 +1,28 @@
+﻿@model string;
+
+@{
+    ViewData["Title"] = "Webinar na życzenie";
+}
+
+<script type="text/javascript">
+
+function register() {
+    $('div#webinar').css('visibility', 'visible');
+    $('div#btnDiv').css('visibility', 'hidden');
+
+}
+
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<br/>
+<div class="text-center" id="btnDiv">
+    <button class="btn btn-lg btn-primary" id="btnRegister" onclick='register()'>Zapisz się</button>
+</div>
+<br/>
+
+<div id="webinar" style="visibility:hidden"> 
+    <iframe src="@Model" height="768" width="1024"></iframe> 
+</div>

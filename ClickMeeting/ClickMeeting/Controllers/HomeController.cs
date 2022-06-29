@@ -21,7 +21,7 @@ namespace ClickMeeting.Controllers
             _cmClient = cmClinent;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Webinar()
         {
             string meetingName = "clickmeeting-test";
 
@@ -57,7 +57,7 @@ namespace ClickMeeting.Controllers
                 _logger.LogError("Message", ex); 
             }
 
-            return View("Index", resultUrl);
+            return View("Webinar", resultUrl);
         }
 
 
@@ -72,16 +72,80 @@ namespace ClickMeeting.Controllers
         }
 
 
+        public async Task<IActionResult> Embed()
+        {
+            string meetingName = "Pokój 2"; ;
 
 
+            string resultUrl = string.Empty;
+            var email = "jan.k@kowal.pl";
+            string username = "Jan Kowalski";
+            try
+            {
+                var rooms = await _cmClient.GetConferenceRooms(ConferenceStatus.Active, 1);
+                var room = rooms.Where(n => n.Name.Equals(meetingName)).FirstOrDefault();
 
+                if (room != null)
+                {
+                    var result = await _cmClient.GetAutologinHash(room, email, username);
 
+                    resultUrl = _cmClient.GetAutologinURL(result, room.RoomUrl);
+                }
+                else
+                {
+                    throw new Exception($"Nie można otworzyć wideo na życzenie {meetingName} :(");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Message", ex);
+            }
 
+            return View("Embed", resultUrl);
+
+        }
+
+        public async Task<IActionResult> Embed2()
+        {
+            string meetingName = "RequestRoom"; ;
+
+            string resultUrl = string.Empty;
+            var email = "jan.k@kowal.pl";
+            string username = "Jan Kowalski";
+            try
+            {
+                var rooms = await _cmClient.GetConferenceRooms(ConferenceStatus.Active, 1);
+                var room = rooms.Where(n => n.Name.Equals(meetingName)).FirstOrDefault();
+
+                if (room != null)
+                {
+                    var result = await _cmClient.GetAutologinHash(room, email, username);
+
+                    resultUrl = _cmClient.GetAutologinURL(result, room.RoomUrl);
+                }
+                else
+                {
+                    throw new Exception($"Nie można otworzyć webinara na życzenie {meetingName} :(");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Message", ex);
+            }
+
+            return View("Embed2", resultUrl);
+        }
 
         public IActionResult Privacy()
         {
             return View();
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

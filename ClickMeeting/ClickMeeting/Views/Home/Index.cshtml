@@ -1,13 +1,39 @@
 ﻿@model string;
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Clickmeeting Test";
 }
 
+<script type="text/javascript">
+
+function goToVideo() {
+    window.location.href = '/Home/Embed/';
+}
+
+function goToVideo2() {
+    window.location.href = '/Home/Embed2/';
+}
+
+function goToWebinar() {
+    window.location.href = '/Home/Webinar/';
+}
+
+</script>
+
 <div class="text-center">
-    <h1 class="display-4">Webinar</h1>
+    <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
+<br/>
 
-<iframe src="@Model" height="768" width="1024"></iframe> 
-
-
+<div class="text-center">
+    <button class="btn btn-lg btn-primary" id="btnWebinar" onclick='goToWebinar();'>Webinar oczekujący</button>
+</div>
+<br/>
+<div class="text-center">
+    <button class="btn btn-lg btn-primary" id="btnVideo" onclick='goToVideo();'>Wideo na życzenie</button>
+</div>
+<br/>
+<div class="text-center">
+    <button class="btn btn-lg btn-primary" id="btnVideo" onclick='goToVideo2();'>Webinar Wideo z automatycznym wprowadzeniem uczestnika</button>
+</div>
+<br/>
