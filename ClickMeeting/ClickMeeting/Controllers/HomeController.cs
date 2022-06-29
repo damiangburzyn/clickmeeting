@@ -34,6 +34,7 @@ namespace ClickMeeting.Controllers
             string username = "testowyUser";
             try
             {
+                //tu jest paging pobiera tylko pierwsze 250 elememntów
                 var rooms = await _cmClient.GetConferenceRooms(ConferenceStatus.Active, 1);                
                 var room = rooms.Where(n => n.Name.Equals(meetingName)).FirstOrDefault();
 
@@ -58,6 +59,15 @@ namespace ClickMeeting.Controllers
 
             return View("Index", resultUrl);
         }
+
+
+        public IActionResult Embeded()
+        {
+            return View();
+        }
+
+
+
 
         public IActionResult Privacy()
         {
