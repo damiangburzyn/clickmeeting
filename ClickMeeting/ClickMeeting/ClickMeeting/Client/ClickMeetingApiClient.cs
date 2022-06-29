@@ -37,7 +37,7 @@ namespace ClickMeeting.ClickMeeting
             return result;
         }
 
-        public async Task<AutologinResult> GetAutologinHash(Room room, string email, string username)
+        public async Task<AutologinResult> GetAutologinHash(Room room, string email, string username, string token = "")
         {
             var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{room.Id}/room/autologin_hash";
             var formData = new List<KeyValuePair<string, string>>();
@@ -45,7 +45,7 @@ namespace ClickMeeting.ClickMeeting
             formData.Add(new KeyValuePair<string, string>("nickname", username));
             formData.Add(new KeyValuePair<string, string>("role", "listener"));
             formData.Add(new KeyValuePair<string, string>("password", room.Password));
-            formData.Add(new KeyValuePair<string, string>("token", String.Empty));
+            formData.Add(new KeyValuePair<string, string>("token", token));
             var formContent = new FormUrlEncodedContent(formData);
 
             var jsonResult = await _client.PostAsync(url, formContent);
@@ -112,5 +112,36 @@ namespace ClickMeeting.ClickMeeting
             return result;
         }
 
+        public async Task<AccessTokenContainer> GenerateAccessToken(int roomId, int howMany = 1)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{roomId}/tokens";
+            var formData = new List<KeyValuePair<string, string>>();
+            formData.Add(new KeyValuePair<string, string>("how_many", howMany.ToString()));
+            var formContent = new FormUrlEncodedContent(formData);
+            var jsonResult = await _client.PostAsync(url, formContent);
+            var jsonString = await jsonResult.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<AccessTokenContainer>(jsonString);
+            return result;
+        }
+
+        public async Task<AccessTokenContainer> GetAccessTokens(int roomId)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{roomId}/tokens";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await _client.SendAsync(request);
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<AccessTokenContainer>(jsonString);
+            return result;
+        }
+
+        public async Task<IEnumerable<Session>> RoomSessions(int roomId)
+        {
+            var url = $"{_clickMeetingConfig.BaseUrl}/conferences/{roomId}/sessions";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await _client.SendAsync(request);
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<IEnumerable<Session>>(jsonString);
+            return result;
+        }
     }
 }

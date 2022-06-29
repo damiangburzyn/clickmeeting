@@ -66,6 +66,15 @@ namespace ClickMeeting.Controllers
             return View();
         }
 
+        public IActionResult WithToken()
+        {
+            return View();
+        }
+
+
+
+
+
 
 
 
