@@ -21,7 +21,7 @@ namespace ClickMeeting.Controllers
             _cmClient = cmClinent;
         }
 
-        public async Task<IActionResult> Webinar()
+        public async Task<IActionResult> WebinarWithPassword()
         {
             string meetingName = "clickmeeting-test";
 
@@ -57,7 +57,7 @@ namespace ClickMeeting.Controllers
                 _logger.LogError("Message", ex); 
             }
 
-            return View("Webinar", resultUrl);
+            return View("WebinarWithPassword", resultUrl);
         }
 
 
@@ -66,13 +66,50 @@ namespace ClickMeeting.Controllers
             return View();
         }
 
-        public IActionResult WithToken()
+        public async Task<IActionResult> WebinarWithToken()
         {
-            return View();
+            string meetingName = "tokenRoom";
+
+            string resultUrl = string.Empty;
+            var email = "damian.gburzyn@gmail.com";
+            string username = "testowyUser";
+            try
+            {
+                //tu jest paging pobiera tylko pierwsze 250 elememntów
+                var rooms = await _cmClient.GetConferenceRooms(ConferenceStatus.Active, 1);
+                var room = rooms.Where(n => n.Name.Equals(meetingName)).FirstOrDefault();
+
+                if (room != null)
+                {
+                    var tokens = await _cmClient.GetAccessTokens(room.Id);
+                    var currentToken = tokens?.AccessTokens?.FirstOrDefault(a => a?.SentToEmail == email || string.IsNullOrEmpty(a?.SentToEmail));
+                    if (currentToken == null)
+                    {
+                        tokens = await _cmClient.GenerateAccessToken(room.Id);
+                        currentToken = tokens?.AccessTokens?.FirstOrDefault(a => string.IsNullOrEmpty(a?.SentToEmail));
+
+                    }
+                    // z room można wyciagnąć Id, Password
+                    var result = await _cmClient.GetAutologinHash(room, email, username, currentToken.Token);
+
+                    //mały sukces TEN URL MOŻNA PODAĆ JAKO IFRAME !!!!!!!!!!!!!!! :)
+                    //elegancko :)
+                    resultUrl = _cmClient.GetAutologinURL(result, room.RoomUrl);
+                }
+                else
+                {
+                    throw new Exception($"Nie można otworzyć pokoju webinara {meetingName} :(");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Message", ex);
+            }
+            return View("WebinarWithToken", resultUrl);
         }
 
 
-        public async Task<IActionResult> Embed()
+        public async Task<IActionResult> VideoForRequest()
         {
             string meetingName = "Pokój 2"; ;
 
@@ -101,11 +138,11 @@ namespace ClickMeeting.Controllers
                 _logger.LogError("Message", ex);
             }
 
-            return View("Embed", resultUrl);
+            return View("VideoForRequest", resultUrl);
 
         }
 
-        public async Task<IActionResult> Embed2()
+        public async Task<IActionResult> WebinarForRequest()
         {
             string meetingName = "RequestRoom"; ;
 
@@ -133,7 +170,7 @@ namespace ClickMeeting.Controllers
                 _logger.LogError("Message", ex);
             }
 
-            return View("Embed2", resultUrl);
+            return View("WebinarForRequest", resultUrl);
         }
 
         public IActionResult Privacy()

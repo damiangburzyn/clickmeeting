@@ -7,17 +7,23 @@
 <script type="text/javascript">
 
 function goToVideo() {
-    window.location.href = '/Home/Embed/';
+    window.location.href = '/Home/VideoForRequest/';
 }
 
 function goToVideo2() {
-    window.location.href = '/Home/Embed2/';
+    window.location.href = '/Home/WebinarForRequest/';
 }
 
 function goToWebinar() {
-    window.location.href = '/Home/Webinar/';
+    window.location.href = '/Home/WebinarWithPassword/';
 }
 
+function goToEmbeded() {
+    window.location.href = '/Home/Embeded/';
+}
+function  goToTokenRoom() {
+    window.location.href = '/Home/WebinarWithToken/';
+}
 </script>
 
 <div class="text-center">
@@ -26,7 +32,7 @@ function goToWebinar() {
 <br/>
 
 <div class="text-center">
-    <button class="btn btn-lg btn-primary" id="btnWebinar" onclick='goToWebinar();'>Webinar oczekujący</button>
+    <button class="btn btn-lg btn-primary" id="btnWebinar" onclick='goToWebinar();'>Webinar z hasłem</button>
 </div>
 <br/>
 <div class="text-center">
@@ -35,5 +41,13 @@ function goToWebinar() {
 <br/>
 <div class="text-center">
     <button class="btn btn-lg btn-primary" id="btnVideo" onclick='goToVideo2();'>Webinar Wideo z automatycznym wprowadzeniem uczestnika</button>
+</div>
+<br/>
+<div class="text-center">
+    <button class="btn btn-lg btn-primary" id="btnVideo" onclick='goToEmbeded();'>Okno Embeded</button>
+</div>
+<br/>
+<div class="text-center">
+    <button class="btn btn-lg btn-primary" id="btnVideo" onclick='goToTokenRoom();'>Webinar z tokenem</button>
 </div>
 <br/>

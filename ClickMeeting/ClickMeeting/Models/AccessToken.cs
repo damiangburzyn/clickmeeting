@@ -8,9 +8,9 @@ namespace ClickMeeting.Models
         public string Token { get; set; }
 
         [JsonProperty("sent_to_email")]
-        public object SentToEmail { get; set; }
+        public string SentToEmail { get; set; }
 
         [JsonProperty("first_use_date")]
-        public object FirstUseDate { get; set; }
+        public DateTime? FirstUseDate { get; set; }
     }
 }
